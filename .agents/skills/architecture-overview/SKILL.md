@@ -1,12 +1,13 @@
-# GameStash
+---
+name: architecture-overview
+description: Architectural overview, component interactions, and data flows for the GameStash platform.
+---
 
-Self-hostable game manager platform.
+# GameStash Architecture Reference
 
-## What It Does
+Use this skill when planning new components, API endpoints, or data flows across GameStash.
 
-GameStash is a self-hostable platform for managing personal game libraries—including retro ISOs/ROMs and PC games. It pairs a desktop frontend with a self-hosted backend that manages cloud save synchronization, game downloads via an object store, and game metadata fetched from open-source databases.
-
-## How the Model Works
+## System Topology
 
 ```
 +------------------------------------------------------------------------+
@@ -37,28 +38,18 @@ GameStash is a self-hostable platform for managing personal game libraries—inc
 +------------------------------------------------------------------------+
 ```
 
-- **Frontend**: Desktop game launcher and manager built with Tauri & React.
-- **Backend**: Self-hosted server managing game downloads, cloud saves, and external game database queries.
-- **Storage**: Object store model for storing ISOs, ROMs, PC game binaries, and save states.
+## Component Roles & Communication
 
-## Stack & Targets
+1. **Client (Tauri + React UI)**
+   - Responsible for cross-platform desktop UI execution (Windows, Linux Bazzite).
+   - Issues requests to the self-hosted backend for library updates, game launches, and save synchronization.
 
-- **Tech Stack**: Tauri framework with a React-based UI.
-- **Target OS**: Linux (Bazzite) and Windows (latest versions).
+2. **Self-Hosted Backend**
+   - Central control unit serving downloads, syncing cloud saves, and coordinating storage access.
+   - Interfaces directly with external game databases to fetch metadata and assets, caching them locally or serving them to clients.
 
-## Testing
+3. **Object Store**
+   - Storage target responsible for binary payload storage (ISOs, ROMs, game builds, save states).
 
-Testing is fully automated across all layers:
-- UI components (Tauri & React)
-- Background logic & sync workflows
-- CLI interfaces
-- Server actions & API routes
-
-## Status
-
-Proof of concept.
-
-## AI policy
-* While not a had rule, generally avoid any introduction of AI code for full blown features or if at all if possible. Understanding of the codebase is a skill that should not be offloaded to the AI agent.
-* AI written tests are acceptable but everything needs to have a purpose and a reason.
-* Avoid vagueness at all costs.
+4. **External Game Metadata DB**
+   - Open source database queried by the backend for information gathering (cover art, publisher, release dates).
