@@ -1,0 +1,34 @@
+{
+  "name": "gamestash-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GameStash - Self-hostable game manager platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npx -y concurrently -k -n \"SERVER,DESKTOP\" -c \"cyan,magenta\" \"npm run dev:server\" \"npm run dev:desktop\"",
+    "dev:server": "cargo run -p gamestash-server",
+    "dev:desktop": "npm run tauri dev --prefix apps/desktop",
+    "build": "npm run build:server && npm run build:desktop",
+    "build:server": "cargo build --release -p gamestash-server",
+    "build:desktop": "npm run tauri build --prefix apps/desktop",
+    "test": "npm run test:rust && npm run test:desktop",
+    "test:rust": "cargo test --workspace",
+    "test:desktop": "npm run test --prefix apps/desktop",
+    "clean:build": "node -e \"const fs = require('fs'); ['apps/desktop/dist', 'target/release'].forEach(p => fs.rmSync(p, { recursive: true, force: true })); console.log('Build artifacts cleaned.');\"",
+    "clean": "node -e \"const fs = require('fs'); ['node_modules', 'apps/desktop/node_modules', 'apps/desktop/dist', 'target'].forEach(p => fs.rmSync(p, { recursive: true, force: true })); console.log('Workspace cleaned to fresh state.');\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "gamestash",
+    "tauri",
+    "react",
+    "rust",
+    "cloud-saves"
+  ],
+  "author": "Nicholas Hellmers",
+  "license": "MIT"
+}
