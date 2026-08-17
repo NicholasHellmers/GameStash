@@ -15,7 +15,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "8080".to_string());
     let storage_endpoint = std::env::var("STORAGE_ENDPOINT")
-        .unwrap_or_else(|_| "http://localhost:9000/gamestash".to_string());
+        .unwrap_or_else(|_| format!("http://127.0.0.1:{port}/storage"));
 
     let addr: SocketAddr = format!("0.0.0.0:{port}").parse()?;
     let app = create_app(storage_endpoint);

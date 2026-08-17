@@ -1,6 +1,7 @@
 pub mod games;
 pub mod health;
 pub mod saves;
+pub mod storage;
 
 use axum::{
     routing::{get, post},
@@ -23,6 +24,7 @@ pub fn create_router(state: AppState) -> Router {
         .route("/api/v1/games/:id/download-url", post(games::generate_download_url))
         .route("/api/v1/saves/:id/manifest", get(saves::get_save_manifest))
         .route("/api/v1/saves/:id/sync", post(saves::sync_save))
+        .route("/storage/*key", get(storage::stream_storage_file))
         .layer(cors)
         .with_state(state)
 }

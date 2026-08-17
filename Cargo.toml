@@ -25,7 +25,11 @@ tokio = { version = "1.38", features = ["full"] }
 thiserror = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
 sha2 = "0.10"
+md-5 = "0.10"
+sha1 = "0.10"
+hex = "0.4"
 uuid = { version = "1.8", features = ["v4", "serde"] }
+futures-util = "0.3"
 
 # Internal workspace crates
 core-types = { path = "crates/core-types" }

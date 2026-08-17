@@ -1,7 +1,23 @@
 pub mod downloader;
+pub mod engine_detector;
+pub mod hashing;
 pub mod launcher;
+pub mod library_scanner;
+pub mod media_cache;
+pub mod metadata_store;
+pub mod save_backup;
+pub mod save_manager;
+pub mod scraper;
 pub mod watcher;
 
-pub use downloader::HttpDownloader;
+pub use downloader::DownloadManager;
+pub use engine_detector::EngineDetector;
+pub use hashing::RomHasher;
 pub use launcher::ProcessLauncher;
+pub use library_scanner::{LibraryScanner, ScannerCache};
+pub use media_cache::{MediaCacheError, MediaCacheService};
+pub use metadata_store::MetadataStore;
+pub use save_backup::SaveBackupService;
+pub use save_manager::SaveManager;
+pub use scraper::{ScrapedGameMetadata, ScraperService};
 pub use watcher::SaveWatcher;

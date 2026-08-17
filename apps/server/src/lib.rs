@@ -14,3 +14,7 @@ pub fn create_app(storage_endpoint: String) -> Router {
     let state = AppState::new(storage_endpoint);
     create_router(state)
 }
+
+pub fn create_app_with_state(state: AppState) -> Router {
+    create_router(state)
+}

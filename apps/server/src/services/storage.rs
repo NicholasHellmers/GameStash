@@ -16,7 +16,7 @@ impl StorageService {
             download_url,
             expires_in_seconds,
             file_size_bytes: game.file_size_bytes,
-            sha256_checksum: None,
+            sha256_checksum: Some(game.sha256_checksum.clone()),
         }
     }
 }

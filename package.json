@@ -16,8 +16,10 @@
     "test": "npm run test:rust && npm run test:desktop",
     "test:rust": "cargo test --workspace",
     "test:desktop": "npm run test --prefix apps/desktop",
+    "test:coverage": "npm run test:coverage --prefix apps/desktop",
     "clean:build": "node -e \"const fs = require('fs'); ['apps/desktop/dist', 'target/release'].forEach(p => fs.rmSync(p, { recursive: true, force: true })); console.log('Build artifacts cleaned.');\"",
-    "clean": "node -e \"const fs = require('fs'); ['node_modules', 'apps/desktop/node_modules', 'apps/desktop/dist', 'target'].forEach(p => fs.rmSync(p, { recursive: true, force: true })); console.log('Workspace cleaned to fresh state.');\""
+    "clean": "node -e \"const fs = require('fs'); ['node_modules', 'apps/desktop/node_modules', 'apps/desktop/dist', 'target'].forEach(p => fs.rmSync(p, { recursive: true, force: true })); console.log('Workspace cleaned to fresh state.');\"",
+    "deep-clean": "node scripts/deep-clean.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

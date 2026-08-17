@@ -1,7 +1,7 @@
 # GameStash Makefile
 # Standardized Developer Automation for Windows and Linux (Bazzite)
 
-.PHONY: help dev dev-server dev-desktop status kill test test-rust test-desktop build build-server build-desktop clean-build clean
+.PHONY: help dev dev-server dev-desktop status kill test test-rust test-desktop coverage coverage-rust coverage-desktop build build-server build-desktop clean-build clean deep-clean
 
 .DEFAULT_GOAL := help
 
@@ -34,6 +34,7 @@ help: ## Show this help message
 	@echo "  make build-desktop - Build release bundle for gamestash-desktop"
 	@echo "  make clean-build   - Fast cleanup: remove only release binaries and dist folders"
 	@echo "  make clean         - Deep cleanup: remove all target/ caches and node_modules"
+	@echo "  make deep-clean    - Reset local GameStash library, media cache, and save state"
 	@echo ""
 
 # -----------------------------------------------------------------------------
@@ -77,6 +78,14 @@ test-rust: ## Run Rust tests across core-types, server, and desktop
 test-desktop: ## Run React component tests via Vitest
 	npm run test:desktop
 
+coverage: coverage-rust coverage-desktop ## Run full automated tests with coverage reports
+
+coverage-rust: ## Run Rust tests with coverage
+	cargo test --workspace
+
+coverage-desktop: ## Run React component tests with code coverage (Vitest v8)
+	npm run test:coverage --prefix apps/desktop
+
 # -----------------------------------------------------------------------------
 # Production Build & Verification Targets
 # -----------------------------------------------------------------------------
@@ -98,3 +107,7 @@ clean-build: ## Fast cleanup: removes only release binaries and frontend dist
 
 clean: ## Deep cleanup: removes all target/ caches and node_modules
 	npm run clean
+
+deep-clean: ## Reset local GameStash library, media cache, and save folders
+	npm run deep-clean
+
